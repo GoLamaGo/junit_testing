@@ -7,11 +7,6 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
 
-//        File file = new File("mainFolder/games/savegames/save1.dat");
-//        System.out.println(file.isFile());
-//        System.out.println(file.getName());
-//        System.out.println(file.isDirectory());
-
         Files.createFiles();
 
         GameProgress game1 = new GameProgress(1, 2, 3, 4.5D);
@@ -38,5 +33,9 @@ public class Main {
         var savedGame = GameProgress.openProgress(save1.toString());
         System.out.println(savedGame.toString());
 
+
+        if (save1.delete()) System.out.printf("File %s was deleted%n", save1.getName());
+        if (save2.delete()) System.out.printf("File %s was deleted%n", save2.getName());
+        if (save3.delete()) System.out.printf("File %s was deleted%n", save3.getName());
     }
 }
