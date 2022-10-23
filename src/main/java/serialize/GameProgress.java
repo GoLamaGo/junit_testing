@@ -1,6 +1,7 @@
 package serialize;
 
 import java.io.*;
+import java.nio.file.NoSuchFileException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -64,6 +65,34 @@ public class GameProgress implements Serializable {
         }
 
     }
+
+    public static void zipFilesWithExceptionThroing(String zipPath, String... files) throws IOException {
+
+        ZipOutputStream zipStream = new ZipOutputStream(new FileOutputStream(zipPath));
+
+        for (String file : files) {
+            File fileName = new File(file);
+            FileInputStream fis = new FileInputStream(file);
+
+            ZipEntry zipEntry = new ZipEntry(fileName.getName());
+            zipStream.putNextEntry(zipEntry);
+
+            byte[] buffer = fis.readAllBytes();
+
+            zipStream.write(buffer);
+            zipStream.closeEntry();
+
+            for (int i = 0; i < files.length; i++) {
+                try {
+                    File fileToDelete = new File(files[i]);
+                    fileToDelete.delete();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     public static void openZip(String filePath, String destinationPath) {
         try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(filePath))) {
