@@ -8,10 +8,10 @@ import java.util.zip.ZipOutputStream;
 public class GameProgress implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int health;
-    private int weapons;
-    private int lvl;
-    private double distance;
+    private final int health;
+    private final int weapons;
+    private final int lvl;
+    private final double distance;
 
     public GameProgress(int health, int weapons, int lvl, double distance) {
         this.health = health;
