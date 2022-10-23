@@ -1,7 +1,4 @@
 import org.junit.jupiter.api.*;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
-import serialize.GameProgress;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,17 +11,14 @@ import static serialize.GameProgress.zipFilesWithExceptionThroing;
 
 public class FileTest {
     private static final String mainFolderName = "mainFolder";
-    private static final Logger log = LoggerFactory.getLogger(FileTest.class);
-    private static final File mainFolder;
-    private static final Path maintFolderPath;
-    private static final Boolean isMainFolderExists;
+    private static final File mainFolder = new File(mainFolderName);
+    private static final Path maintFolderPath = Path.of(mainFolder.getPath());
+    private static final Boolean isMainFolderExists = mainFolder.exists();
 
-    static {
-        mainFolder = new File(mainFolderName);
-        maintFolderPath = Path.of(mainFolder.getPath());
-        isMainFolderExists = mainFolder.exists();
-    }
-
+    /**
+     * Метод для удаления созданных во время тестов файлов и папок
+     * Все действия производятся в папке mainFolder
+     */
     private static void deleteMainFolder() throws IOException {
         java.nio.file.Files.walk(maintFolderPath)
                 .sorted(Comparator.reverseOrder())
@@ -33,18 +27,18 @@ public class FileTest {
     }
 
     @BeforeEach
+    @DisplayName("Удаление папки mainFolder и вложенных файлов и папок")
     public void cleanUpBefore() throws IOException {
         if (isMainFolderExists) {
             deleteMainFolder();
-            log.info(() -> "MainFolder deleted");
         }
     }
 
     @AfterEach
+    @DisplayName("Удаление папки mainFolder и вложенных файлов и папок")
     public void cleanUpAfter() throws IOException {
         if (isMainFolderExists) {
             deleteMainFolder();
-            log.info(() -> "MainFolder deleted");
         }
     }
 
@@ -81,7 +75,7 @@ public class FileTest {
     }
 
     @Test
-    public void create_zip_with_exception() throws IOException {
+    public void create_zip_with_exception() {
         // given
         String filename = "file";
         String zip = "mainFolder/zip.zip";
