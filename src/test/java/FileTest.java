@@ -11,10 +11,10 @@ import static serialize.GameProgress.zipFilesWithExceptionThroing;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileTest {
-    private static final String mainFolderName = "mainFolder";
-    private static final File mainFolder = new File(mainFolderName);
-    private static final Path maintFolderPath = Path.of(mainFolder.getPath());
-    private static final Boolean isMainFolderExists = mainFolder.exists();
+    private final String mainFolderName = "mainFolder";
+    private final File mainFolder = new File(mainFolderName);
+    private final Path maintFolderPath = Path.of(mainFolder.getPath());
+    private final Boolean isMainFolderExists = mainFolder.exists();
 
     /**
      * Метод для удаления созданных во время тестов файлов и папок
