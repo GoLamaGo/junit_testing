@@ -8,6 +8,7 @@ import java.util.Comparator;
 import static files.Files.createFiles;
 import static serialize.GameProgress.zipFiles;
 import static serialize.GameProgress.zipFilesWithExceptionThroing;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FileTest {
     private static final String mainFolderName = "mainFolder";
@@ -44,7 +45,7 @@ public class FileTest {
 
     @Test
     @DisplayName("Проверка создания  каталогов и файлов")
-    public void creating_file() throws IOException {
+    public void creatingFile() throws IOException {
         // given
         File createdFolder;
 
@@ -53,12 +54,12 @@ public class FileTest {
         createdFolder = new File(mainFolderName);
 
         // then
-        Assertions.assertTrue(createdFolder.exists());
+        assertTrue(createdFolder.exists());
     }
 
     @Test
     @DisplayName("Проверка создания архива")
-    public void zip_files() throws IOException {
+    public void creationZipFiles() throws IOException {
         // given
         File createdZip;
         mainFolder.mkdir();
@@ -71,16 +72,16 @@ public class FileTest {
         createdZip = new File(zip);
 
         // then
-        Assertions.assertTrue(createdZip.exists());
+        assertTrue(createdZip.exists());
     }
 
     @Test
-    public void create_zip_with_exception() {
+    public void createZipWithException() {
         // given
         String filename = "file";
         String zip = "mainFolder/zip.zip";
 
         // when and then
-        Assertions.assertThrows(IOException.class, () -> zipFilesWithExceptionThroing(zip, filename));
+        assertThrows(IOException.class, () -> zipFilesWithExceptionThroing(zip, filename));
     }
 }
